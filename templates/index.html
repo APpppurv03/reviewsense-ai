@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ReviewSense AI - Turn customer feedback into smarter decisions. Comprehensive AI sentiment analysis, theme discovery, and actionable customer experience insights.">
+    <title>ReviewSense AI - Turn Customer Feedback into Smarter Decisions</title>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header" role="banner">
+        <div class="header-container">
+            <a href="#" class="brand-logo" aria-label="ReviewSense AI Home">
+                <div class="brand-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="10" r="1"></circle>
+                        <circle cx="8" cy="10" r="1"></circle>
+                        <circle cx="16" cy="10" r="1"></circle>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">ReviewSense <span class="brand-accent">AI</span></span>
+                    <span class="brand-tagline">Turn customer feedback into smarter decisions.</span>
+                </div>
+            </a>
+
+            <nav class="header-nav" aria-label="Main Navigation">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#workspace" class="nav-link">Analysis Workspace</a>
+                <a href="#dashboard-section" class="nav-link">Dashboard</a>
+                <div class="api-status-pill" id="api-status-pill" title="Checking Gemini service status">
+                    <span class="status-dot status-loading" id="api-status-dot"></span>
+                    <span id="api-status-label">Checking AI Engine...</span>
+                </div>
+                <a href="#workspace" class="btn btn-primary btn-sm header-cta">Analyze Reviews</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main id="main-content" class="main-content" role="main">
+        
+        <!-- SECTION A: Landing Hero -->
+        <section class="hero-section" aria-labelledby="hero-heading">
+            <div class="hero-container">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>Intelligence for Customer Feedback</span>
+                </div>
+                <h1 id="hero-heading" class="hero-title">
+                    Understand what your customers feel, love, and complain about.
+                </h1>
+                <p class="hero-description">
+                    ReviewSense AI transforms high-volume, unstructured customer reviews into validated sentiment distributions, recurring friction patterns, and grounded operational recommendations.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="#workspace" class="btn btn-primary btn-lg">
+                        <span>Analyze Reviews</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline btn-lg">View Workflow</a>
+                </div>
+
+                <!-- Workflow Process Cards -->
+                <div id="how-it-works" class="workflow-grid" aria-label="Analysis Process Steps">
+                    <div class="workflow-card">
+                        <div class="workflow-step-num">01</div>
+                        <div class="workflow-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h2 class="workflow-heading">Paste Raw Feedback</h2>
+                        <p class="workflow-text">Input multiple reviews from online platforms, surveys, app stores, or helpdesk tickets.</p>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="workflow-step-num">02</div>
+                        <div class="workflow-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h2 class="workflow-heading">Gemini Intelligence</h2>
+                        <p class="workflow-text">Google Gemini classifies individual sentiment, extracts recurring themes, and detects critical friction points.</p>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="workflow-step-num">03</div>
+                        <div class="workflow-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <h2 class="workflow-heading">Actionable Dashboard</h2>
+                        <p class="workflow-text">Review verified sentiment metrics, priority complaints, practical improvements, and exportable JSON reports.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION B: Analysis Workspace -->
+        <section id="workspace" class="workspace-section" aria-labelledby="workspace-heading">
+            <div class="workspace-container">
+                <div class="card workspace-card">
+                    <div class="card-header">
+                        <div>
+                            <h2 id="workspace-heading" class="card-title">Customer Feedback Analysis Workspace</h2>
+                            <p class="card-subtitle">Paste your customer reviews below. Enter each review on a separate line or separate paragraphs.</p>
+                        </div>
+                        <div class="card-header-actions">
+                            <button type="button" id="btn-load-sample" class="btn btn-secondary btn-sm" title="Insert representative sample reviews to test the analysis engine">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span>Load Example Reviews</span>
+                            </button>
+                            <button type="button" id="btn-clear-input" class="btn btn-ghost btn-sm" title="Clear all fields">
+                                <span>Clear Text</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <form id="analyze-form" class="workspace-form" novalidate>
+                        <!-- Metadata Fields -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="business-name" class="form-label">
+                                    Business or Product Name <span class="label-optional">(optional)</span>
+                                </label>
+                                <input type="text" id="business-name" name="business_name" class="form-input" placeholder="e.g. Acme Tech, Urban Bistro, CloudSync" maxlength="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="industry-category" class="form-label">
+                                    Industry or Category <span class="label-optional">(optional)</span>
+                                </label>
+                                <input type="text" id="industry-category" name="industry" class="form-input" placeholder="e.g. E-Commerce, SaaS, Hospitality, Retail" maxlength="100">
+                            </div>
+                        </div>
+
+                        <!-- Feedback Textarea -->
+                        <div class="form-group">
+                            <div class="textarea-header">
+                                <label for="reviews-text" class="form-label">
+                                    Customer Reviews <span class="label-required">*</span>
+                                </label>
+                                <div class="input-counters" aria-live="polite">
+                                    <span class="badge badge-neutral" id="review-counter-badge">
+                                        <strong id="live-review-count">0</strong> reviews detected
+                                    </span>
+                                    <span class="char-count" id="char-counter">0 / 50,000 characters</span>
+                                </div>
+                            </div>
+                            
+                            <textarea id="reviews-text" name="reviews" class="form-textarea" rows="9" 
+                                placeholder="Paste customer reviews here...&#10;&#10;Formatting Tip:&#10;• Separate individual reviews by a new line or blank line.&#10;• Example:&#10;Loved the rapid onboarding and friendly support team!&#10;The mobile app crashes frequently when uploading photos.&#10;Standard service, average delivery speed."
+                                maxlength="50000" required aria-describedby="textarea-help"></textarea>
+                            <p id="textarea-help" class="form-hint">
+                                Customer review text is transmitted directly to Google Gemini for analysis. No reviews are permanently stored on the server.
+                            </p>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="form-actions">
+                            <button type="submit" id="btn-submit-analyze" class="btn btn-primary btn-lg">
+                                <svg class="btn-icon" id="btn-analyze-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <span id="btn-analyze-text">Analyze Feedback</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Alert / Status Banner -->
+                    <div id="status-banner" class="status-banner is-hidden" role="alert" aria-live="assertive">
+                        <div class="status-banner-icon" id="status-banner-icon" aria-hidden="true"></div>
+                        <div class="status-banner-content">
+                            <div class="status-banner-title" id="status-banner-title">Notification</div>
+                            <div class="status-banner-message" id="status-banner-message"></div>
+                        </div>
+                        <button type="button" class="status-banner-close" id="status-banner-close" aria-label="Dismiss alert">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Loading State Skeleton -->
+                    <div id="loading-container" class="loading-container is-hidden" aria-busy="true" aria-live="polite">
+                        <div class="loading-spinner" aria-hidden="true"></div>
+                        <h3 class="loading-title">Analyzing Customer Feedback...</h3>
+                        <p class="loading-text" id="loading-step-text">Sending reviews to Gemini AI for sentiment extraction and theme detection...</p>
+                        <div class="loading-progress-bar">
+                            <div class="loading-progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION C & D & E: Analytics Dashboard & Results -->
+        <section id="dashboard-section" class="dashboard-section is-hidden" aria-labelledby="dashboard-heading">
+            <div class="dashboard-container">
+                
+                <!-- Results Header & Controls -->
+                <div class="dashboard-top-bar">
+                    <div>
+                        <div class="dashboard-meta-badge">
+                            <span class="pulse-indicator"></span>
+                            <span>Analysis Complete</span>
+                        </div>
+                        <h2 id="dashboard-heading" class="dashboard-main-title">Feedback Intelligence Report</h2>
+                        <p class="dashboard-subtitle" id="dashboard-subtitle-text">Grounded analysis across classified customer reviews</p>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button type="button" id="btn-export-json" class="btn btn-outline" title="Download verified analysis report as JSON">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Download JSON Report</span>
+                        </button>
+                        <button type="button" id="btn-reset-all" class="btn btn-secondary" title="Start a fresh analysis">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <polyline points="23 20 23 14 17 14"></polyline>
+                                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                            </svg>
+                            <span>Reset & Start Over</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Executive Summary Callout -->
+                <div class="card executive-summary-card">
+                    <div class="summary-card-header">
+                        <div class="summary-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <span>Executive Summary</span>
+                        </div>
+                        <span class="ai-generated-tag" title="Classification generated by Google Gemini model">AI-Generated Analysis</span>
+                    </div>
+                    <p class="summary-text" id="summary-content-text"></p>
+                </div>
+
+                <!-- Verified Key Metrics Cards -->
+                <div class="metrics-grid">
+                    <!-- Total Reviews -->
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label">Total Classified</span>
+                            <div class="metric-icon metric-icon-total">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value" id="metric-total-count">0</div>
+                        <div class="metric-footer">
+                            <span>Dominant: <strong id="metric-dominant-sentiment">Neutral</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Positive Count -->
+                    <div class="metric-card metric-positive">
+                        <div class="metric-header">
+                            <span class="metric-label">Positive Sentiment</span>
+                            <div class="metric-icon metric-icon-positive">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="metric-positive-count">0</span>
+                            <span class="metric-percentage" id="metric-positive-pct">0%</span>
+                        </div>
+                        <div class="metric-bar-bg">
+                            <div class="metric-bar-fill fill-positive" id="bar-positive-pct" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Negative Count -->
+                    <div class="metric-card metric-negative">
+                        <div class="metric-header">
+                            <span class="metric-label">Negative Sentiment</span>
+                            <div class="metric-icon metric-icon-negative">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="metric-negative-count">0</span>
+                            <span class="metric-percentage" id="metric-negative-pct">0%</span>
+                        </div>
+                        <div class="metric-bar-bg">
+                            <div class="metric-bar-fill fill-negative" id="bar-negative-pct" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Neutral Count -->
+                    <div class="metric-card metric-neutral">
+                        <div class="metric-header">
+                            <span class="metric-label">Neutral / Mixed</span>
+                            <div class="metric-icon metric-icon-neutral">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="metric-neutral-count">0</span>
+                            <span class="metric-percentage" id="metric-neutral-pct">0%</span>
+                        </div>
+                        <div class="metric-bar-bg">
+                            <div class="metric-bar-fill fill-neutral" id="bar-neutral-pct" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Sentiment Distribution Bar -->
+                <div class="card distribution-card">
+                    <div class="distribution-header">
+                        <h3 class="distribution-title">Validated Sentiment Ratio</h3>
+                        <span class="distribution-subtext">Category totals equal 100% of classified reviews</span>
+                    </div>
+                    <div class="stacked-bar-container" aria-label="Sentiment distribution graphic">
+                        <div class="stacked-segment segment-positive" id="stacked-pos" style="width: 0%;" title="Positive"></div>
+                        <div class="stacked-segment segment-neutral" id="stacked-neut" style="width: 0%;" title="Neutral"></div>
+                        <div class="stacked-segment segment-negative" id="stacked-neg" style="width: 0%;" title="Negative"></div>
+                    </div>
+                    <div class="stacked-legend">
+                        <div class="legend-item"><span class="legend-dot dot-positive"></span> Positive (<span id="legend-pos-pct">0%</span>)</div>
+                        <div class="legend-item"><span class="legend-dot dot-neutral"></span> Neutral (<span id="legend-neut-pct">0%</span>)</div>
+                        <div class="legend-item"><span class="legend-dot dot-negative"></span> Negative (<span id="legend-neg-pct">0%</span>)</div>
+                    </div>
+                </div>
+
+                <!-- Two-Column Themes Section -->
+                <div class="dashboard-grid-two">
+                    <!-- Positive Themes & Customer Likes -->
+                    <div class="card theme-panel">
+                        <div class="panel-header theme-panel-positive">
+                            <div class="panel-title-wrap">
+                                <div class="panel-icon icon-positive">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <h3 class="panel-title">Customer Likes & Positive Themes</h3>
+                            </div>
+                            <span class="badge badge-positive" id="badge-pos-theme-count">0 Themes</span>
+                        </div>
+                        <div class="panel-body" id="positive-themes-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Negative Themes & Critical Friction -->
+                    <div class="card theme-panel">
+                        <div class="panel-header theme-panel-negative">
+                            <div class="panel-title-wrap">
+                                <div class="panel-icon icon-negative">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="panel-title">Complaints & Recurring Issues</h3>
+                            </div>
+                            <span class="badge badge-negative" id="badge-neg-theme-count">0 Issues</span>
+                        </div>
+                        <div class="panel-body" id="negative-themes-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neutral / Inconclusive Observations (if present) -->
+                <div class="card neutral-observations-card is-hidden" id="neutral-observations-container">
+                    <h4 class="neutral-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Neutral & Mixed Observations
+                    </h4>
+                    <ul class="neutral-list" id="neutral-observations-list"></ul>
+                </div>
+
+                <!-- SECTION F: Practical Recommendations -->
+                <div class="card recommendations-card" id="recommendations-container">
+                    <div class="recommendations-header">
+                        <div>
+                            <div class="panel-badge-sub">Strategic Action Plan</div>
+                            <h3 class="recommendations-title">Practical Experience Recommendations</h3>
+                            <p class="recommendations-description">
+                                Actionable operational improvements synthesized directly from customer feedback patterns.
+                            </p>
+                        </div>
+                        <span class="ai-estimated-pill">Priority: AI-Estimated</span>
+                    </div>
+
+                    <div class="recommendations-grid" id="recommendations-list">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <div class="recommendations-disclaimer">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span>
+                            Notice: These recommendations are advisory AI suggestions grounded in customer comments and do not guarantee specific business growth or commercial outcomes.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Per-Review Breakdown Table/Cards -->
+                <div class="card reviews-breakdown-card">
+                    <div class="breakdown-header">
+                        <div>
+                            <h3 class="breakdown-title">Classified Customer Feedback Items</h3>
+                            <p class="breakdown-subtitle">Detailed excerpt breakdown and AI sentiment classifications</p>
+                        </div>
+                        <!-- Filter Tabs -->
+                        <div class="filter-tabs" role="tablist" aria-label="Filter reviews by sentiment">
+                            <button type="button" class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+                                All (<span id="filter-count-all">0</span>)
+                            </button>
+                            <button type="button" class="filter-tab" data-filter="positive" role="tab" aria-selected="false">
+                                Positive (<span id="filter-count-pos">0</span>)
+                            </button>
+                            <button type="button" class="filter-tab" data-filter="negative" role="tab" aria-selected="false">
+                                Negative (<span id="filter-count-neg">0</span>)
+                            </button>
+                            <button type="button" class="filter-tab" data-filter="neutral" role="tab" aria-selected="false">
+                                Neutral (<span id="filter-count-neut">0</span>)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reviews-list-container" id="reviews-list-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="brand-title">ReviewSense <span class="brand-accent">AI</span></div>
+                <p class="footer-tagline">Turn customer feedback into smarter decisions.</p>
+                <p class="footer-privacy-note">
+                    Privacy notice: Customer reviews are transmitted to the configured Google Gemini API endpoint for sentiment analysis. Review data is not stored or persisted on the server.
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="#workspace" class="footer-link">Workspace</a>
+                <a href="#how-it-works" class="footer-link">How It Works</a>
+                <a href="#dashboard-section" class="footer-link">Dashboard</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <span>&copy; 2026 ReviewSense AI. All rights reserved.</span>
+                <span>Powered by Google Gemini</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
