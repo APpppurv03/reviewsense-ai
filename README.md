@@ -298,3 +298,12 @@ git push -u origin main
   - Validated sentiment calculations guaranteeing exact mathematical consistency.
   - Full suite of 14 mocked pytest unit and integration tests.
   - Declarative Jenkinsfile pipeline and `.env` configuration.
+ 
+
+## 📄 Project Documentation
+
+The project documentation for DevOps ISE-II is available below:
+
+📘 [**View DevOps ISE-II Documentation (PDF)**](Project%20Documentation/DevOps%20ISE-II.pdf)
+
+
