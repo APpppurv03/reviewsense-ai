@@ -22,6 +22,7 @@ ReviewSense AI is a full-stack, enterprise-grade customer intelligence web appli
 12. [Troubleshooting & Known Limitations](#troubleshooting--known-limitations)
 13. [Future Roadmap](#future-roadmap)
 14. [Version History](#version-history)
+15. [**View DevOps ISE-II Documentation (PDF)**](Project%20Documentation/DevOps%20ISE-II.pdf)
 
 ---
 
