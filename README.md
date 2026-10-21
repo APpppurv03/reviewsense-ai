@@ -308,13 +308,7 @@ Open the local URL displayed by Flask. The existing development environment uses
 python -m pytest tests/ -v
 ```
 
-## 11. Project Documentation
-
-The compiled DevOps ISE-II PDF contains supporting project screenshots and evidence.
-
-**[Open DevOps ISE-II Documentation (PDF)](Project%20Documentation/DevOps%20ISE-II.pdf)**
-
-## 12. Conclusion
+## 11. Conclusion
 
 ReviewSense AI demonstrates how AI-powered customer review analysis can be combined with practical website improvements and DevOps practices. The project includes separate feature commits, GitHub-based version control, automated testing, Jenkins integration, and supporting documentation.
 
