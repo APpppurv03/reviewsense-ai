@@ -238,6 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
             renderDashboard(data);
             setLoadingState(false);
 
+            // Save a privacy-conscious summary to browser history
+            saveToHistory(data);
+
             showStatusBanner('success', 'Analysis Succeeded', `Successfully analyzed ${data.metrics.total_classified} reviews with Google Gemini.`);
             
             // Scroll to dashboard smoothly
@@ -727,7 +730,133 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ==========================================
+    // 9. Recent Analysis History (localStorage)
+    // ==========================================
+    const HISTORY_KEY = 'reviewsense_history';
+    const HISTORY_MAX = 5;
+
+    const historyList = document.getElementById('history-list');
+    const historyEmpty = document.getElementById('history-empty');
+    const historyCountBadge = document.getElementById('history-count-badge');
+    const btnClearHistory = document.getElementById('btn-clear-history');
+
+    /**
+     * Safely load history from localStorage.
+     * Returns an empty array on any parsing failure.
+     */
+    function loadHistory() {
+        try {
+            const raw = localStorage.getItem(HISTORY_KEY);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    /**
+     * Save a new entry to history. Keeps most recent HISTORY_MAX entries.
+     * Stores only metadata + metrics + summary — never raw review text.
+     */
+    function saveToHistory(data) {
+        const entry = {
+            savedAt: new Date().toISOString(),
+            businessName: data.metadata?.business_name || 'Unknown',
+            industry: data.metadata?.industry || '',
+            summary: data.summary || '',
+            totalClassified: data.metrics?.total_classified ?? 0,
+            positiveCount: data.metrics?.positive_count ?? 0,
+            negativeCount: data.metrics?.negative_count ?? 0,
+            neutralCount: data.metrics?.neutral_count ?? 0,
+            dominantSentiment: data.metrics?.dominant_sentiment || 'Neutral'
+        };
+
+        const history = loadHistory();
+        history.unshift(entry);          // newest first
+        const trimmed = history.slice(0, HISTORY_MAX);
+
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+        } catch (_) {
+            // Storage quota exceeded or unavailable — silently ignore
+        }
+
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const history = loadHistory();
+        historyCountBadge.textContent = history.length;
+        historyList.innerHTML = '';
+
+        if (!history.length) {
+            historyEmpty.style.display = 'block';
+            return;
+        }
+
+        historyEmpty.style.display = 'none';
+
+        history.forEach((entry, idx) => {
+            const card = document.createElement('div');
+            card.className = 'history-card';
+
+            const savedDate = new Date(entry.savedAt);
+            const formattedDate = isNaN(savedDate)
+                ? 'Unknown date'
+                : savedDate.toLocaleString(undefined, {
+                    month: 'short', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+            const bName = entry.businessName && entry.businessName !== 'N/A'
+                ? entry.businessName
+                : 'Unnamed Analysis';
+            const ind = entry.industry && entry.industry !== 'N/A'
+                ? ` — ${entry.industry}` : '';
+
+            card.innerHTML = `
+                <div class="history-card-top">
+                    <div class="history-card-title">${escapeHtml(bName)}${escapeHtml(ind)}</div>
+                    <span class="history-card-date">${formattedDate}</span>
+                </div>
+                <div class="history-card-meta">
+                    <span class="badge badge-neutral">${entry.totalClassified} reviews</span>
+                    <span class="badge badge-positive">${entry.positiveCount} positive</span>
+                    <span class="badge badge-negative">${entry.negativeCount} negative</span>
+                </div>
+                <p class="history-card-summary">${escapeHtml(entry.summary || '').slice(0, 200)}${(entry.summary || '').length > 200 ? '…' : ''}</p>
+            `;
+
+            historyList.appendChild(card);
+        });
+    }
+
+    /** Simple HTML escaping for untrusted strings rendered via innerHTML */
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    btnClearHistory.addEventListener('click', () => {
+        if (!loadHistory().length) return;
+        if (confirm('Clear all saved analysis history from this browser?')) {
+            try { localStorage.removeItem(HISTORY_KEY); } catch (_) {}
+            renderHistory();
+        }
+    });
+
+    // Initialize history on load
+    renderHistory();
+
+    // ==========================================
     // Initialize Page
+    // ==========================================
     checkBackendHealth();
     updateInputCounters();
 });

@@ -502,6 +502,34 @@
             </div>
         </section>
 
+        <!-- Recent Analysis History Panel -->
+        <section id="history-section" class="history-section" aria-labelledby="history-heading">
+            <div class="history-container">
+                <div class="history-header">
+                    <div class="history-title-wrap">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <h3 id="history-heading" class="history-title">Recent Analyses</h3>
+                        <span class="history-badge" id="history-count-badge">0</span>
+                    </div>
+                    <button type="button" id="btn-clear-history" class="btn btn-ghost btn-sm" title="Clear all saved history from this browser">
+                        Clear History
+                    </button>
+                </div>
+                <p class="history-privacy-note">
+                    Analysis summaries are stored locally in your browser only. Raw review text is never saved.
+                </p>
+                <div id="history-list" class="history-list">
+                    <!-- Populated dynamically -->
+                </div>
+                <p id="history-empty" class="history-empty-state">
+                    No previous analyses saved. Run an analysis to begin building your history.
+                </p>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
