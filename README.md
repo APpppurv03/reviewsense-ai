@@ -36,18 +36,15 @@ ReviewSense AI helps users analyze customer feedback without manually examining 
 
 ## 3. Technology Stack
 
-| Technology        | Purpose                                |
-| ----------------- | -------------------------------------- |
-| Python            | Backend application logic              |
-| Flask             | Web framework                          |
-| HTML5             | Page structure                         |
-| CSS3              | Styling and layout                     |
-| JavaScript        | Interactive dashboard                  |
-| Google Gemini API | AI-powered review analysis             |
-| Git and GitHub    | Version control and repository hosting |
-| pytest            | Automated testing                      |
-| Jenkins           | Continuous Integration                 |
-| Docker            | Containerization                       |
+## 3. Technology Stack and Versions
+
+| Technology                         | Version | Purpose                             |
+| ---------------------------------- | ------- | ----------------------------------- |
+| Python                             | 3.13.14 | Backend programming language        |
+| Flask                              | 3.1.3   | Web application framework           |
+| Google Gen AI SDK (`google-genai`) | 2.31.0  | Integration with Google's Gemini AI |
+| pytest                             | 9.1.1   | Automated testing                   |
+| Docker                             | 29.8.2  | Application containerization        |
 
 ## 4. Application Screenshots
 
