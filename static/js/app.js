@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const neutralObservationsList = document.getElementById('neutral-observations-list');
     const recommendationsList = document.getElementById('recommendations-list');
     const reviewsListContainer = document.getElementById('reviews-list-container');
+    const reviewSearchInput = document.getElementById('review-search-input');
+    const reviewSearchCount = document.getElementById('review-search-count');
 
     // Filter Buttons
     const filterTabs = document.querySelectorAll('.filter-tab');
@@ -487,17 +489,38 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderReviewsList(reviews, filter) {
         reviewsListContainer.innerHTML = '';
 
+        const keyword = reviewSearchInput.value.trim().toLowerCase();
+
         const filtered = reviews.filter(rev => {
-            if (filter === 'all') return true;
-            return rev.sentiment === filter;
+            const matchesSentiment =
+                filter === 'all' || rev.sentiment === filter;
+
+            const searchableText = [
+                rev.excerpt,
+                rev.theme,
+                rev.explanation,
+                rev.sentiment
+            ].filter(Boolean).join(' ').toLowerCase();
+
+            const matchesKeyword = searchableText.includes(keyword);
+
+            return matchesSentiment && matchesKeyword;
         });
+
+        reviewSearchCount.textContent =
+            `${filtered.length} review${filtered.length === 1 ? '' : 's'} found`;
 
         if (!filtered.length) {
             const emptyNotice = document.createElement('div');
             emptyNotice.style.padding = '1.5rem';
             emptyNotice.style.textAlign = 'center';
             emptyNotice.style.color = 'var(--color-text-subtle)';
-            emptyNotice.textContent = `No reviews classified as "${filter}".`;
+            const keyword = reviewSearchInput.value.trim();
+            if (keyword) {
+                emptyNotice.textContent = `No reviews match "${keyword}"${filter !== 'all' ? ` in the ${filter} category` : ''}.`;
+            } else {
+                emptyNotice.textContent = `No reviews classified as "${filter}".`;
+            }
             reviewsListContainer.appendChild(emptyNotice);
             return;
         }
@@ -561,16 +584,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 t.classList.remove('active');
                 t.setAttribute('aria-selected', 'false');
             });
+
             tab.classList.add('active');
             tab.setAttribute('aria-selected', 'true');
 
             activeFilter = tab.getAttribute('data-filter') || 'all';
+
             if (currentAnalysisData && currentAnalysisData.reviews) {
                 renderReviewsList(currentAnalysisData.reviews, activeFilter);
             }
         });
     });
 
+    // Search reviews as the user types
+    reviewSearchInput.addEventListener('input', () => {
+        if (currentAnalysisData && currentAnalysisData.reviews) {
+            renderReviewsList(currentAnalysisData.reviews, activeFilter);
+        }
+    });
     // ==========================================
     // 6. JSON Export Feature
     // ==========================================
@@ -623,6 +654,10 @@ document.addEventListener('DOMContentLoaded', () => {
             filterTabs.forEach(t => t.classList.remove('active'));
             filterTabs[0].classList.add('active');
             activeFilter = 'all';
+
+            // Clear search field and count label
+            reviewSearchInput.value = '';
+            reviewSearchCount.textContent = '';
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }

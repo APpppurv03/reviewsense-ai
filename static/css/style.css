@@ -1339,6 +1339,51 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
+/* Keyword search field below the sentiment filter tabs */
+.review-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+}
+
+.review-search input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.5rem 0.875rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    background-color: #ffffff;
+    color: var(--color-text-main);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    /* Remove default browser search-input decoration */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.review-search input[type="search"]:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    outline: none;
+}
+
+/* Cancel button shown by some browsers for type=search */
+.review-search input[type="search"]::-webkit-search-cancel-button {
+    cursor: pointer;
+}
+
+#review-search-count {
+    flex-shrink: 0;
+    font-size: 0.78125rem;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+    white-space: nowrap;
+    min-width: 6ch;
+    text-align: right;
+}
+
 .reviews-list-container {
     display: flex;
     flex-direction: column;
@@ -1518,5 +1563,19 @@ body {
     
     .dashboard-actions .btn {
         width: 100%;
+    }
+
+    /* Search row stacks on mobile */
+    .review-search {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .review-search input[type="search"] {
+        width: 100%;
+    }
+
+    #review-search-count {
+        text-align: left;
     }
 }
