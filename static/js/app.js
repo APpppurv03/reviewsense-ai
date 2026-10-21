@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnExportJson = document.getElementById('btn-export-json');
     const btnExportCsv = document.getElementById('btn-export-csv');
     const btnResetAll = document.getElementById('btn-reset-all');
+    const btnCopySummary = document.getElementById('btn-copy-summary');
+    const btnCopySummaryLabel = document.getElementById('btn-copy-summary-label');
 
     // Internal State
     let currentAnalysisData = null;
@@ -731,7 +733,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 9. Recent Analysis History (localStorage)
+    // 9. Copy Executive Summary to Clipboard
+    // ==========================================
+    btnCopySummary.addEventListener('click', async () => {
+        const summaryText = summaryContentText.textContent.trim();
+        if (!summaryText) {
+            showStatusBanner('info', 'Nothing to Copy', 'Run an analysis first to generate an executive summary.');
+            return;
+        }
+
+        /** Build a richer text including key metrics for context */
+        const bName = currentAnalysisData?.metadata?.business_name || '';
+        const metrics = currentAnalysisData?.metrics || {};
+        const contextLine = bName
+            ? `${bName} — ReviewSense AI Analysis\n`
+            : 'ReviewSense AI Analysis\n';
+        const metricLine = `${metrics.total_classified ?? 0} reviews | `
+            + `${metrics.positive_count ?? 0} positive · `
+            + `${metrics.negative_count ?? 0} negative · `
+            + `${metrics.neutral_count ?? 0} neutral\n\n`;
+        const fullText = contextLine + metricLine + summaryText;
+
+        const resetLabel = () => {
+            setTimeout(() => {
+                btnCopySummaryLabel.textContent = 'Copy';
+                btnCopySummary.classList.remove('copy-success', 'copy-error');
+            }, 2500);
+        };
+
+        try {
+            await navigator.clipboard.writeText(fullText);
+            btnCopySummaryLabel.textContent = 'Copied!';
+            btnCopySummary.classList.add('copy-success');
+            resetLabel();
+        } catch (_) {
+            // Fallback for browsers without clipboard API or insecure context
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = fullText;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btnCopySummaryLabel.textContent = 'Copied!';
+                btnCopySummary.classList.add('copy-success');
+                resetLabel();
+            } catch (_fallbackErr) {
+                btnCopySummaryLabel.textContent = 'Failed';
+                btnCopySummary.classList.add('copy-error');
+                showStatusBanner('error', 'Copy Failed', 'Your browser blocked clipboard access. Please select and copy the summary text manually.');
+                resetLabel();
+            }
+        }
+    });
+
+    // ==========================================
+    // 10. Recent Analysis History (localStorage)
     // ==========================================
     const HISTORY_KEY = 'reviewsense_history';
     const HISTORY_MAX = 5;

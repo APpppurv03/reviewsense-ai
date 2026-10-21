@@ -843,6 +843,50 @@ body {
     color: var(--color-text-subtle);
 }
 
+/* Right group: AI tag + copy button */
+.summary-header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Copy-summary button */
+.btn-copy-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-copy-summary:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-bg-subtle);
+}
+
+.btn-copy-summary:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.4);
+    outline-offset: 2px;
+}
+
+.btn-copy-summary.copy-success {
+    color: var(--color-positive, #16a34a);
+    border-color: var(--color-positive, #16a34a);
+}
+
+.btn-copy-summary.copy-error {
+    color: var(--color-negative, #dc2626);
+    border-color: var(--color-negative, #dc2626);
+}
+
 .summary-text {
     font-size: 1.05rem;
     line-height: 1.65;
