@@ -6,8 +6,6 @@ This project was developed as part of the **DevOps and Kubernetes ISE-II** pract
 
 **Repository:** [ReviewSense AI on GitHub](https://github.com/APpppurv03/reviewsense-ai)
 
-**Documentation:** [DevOps ISE-II PDF](Project%20Documentation/DevOps%20ISE-II.pdf)
-
 ---
 
 ## 1. Project Overview
