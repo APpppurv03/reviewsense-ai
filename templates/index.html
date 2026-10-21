@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -174,7 +174,7 @@
                             </div>
                             
                             <textarea id="reviews-text" name="reviews" class="form-textarea" rows="9" 
-                                placeholder="Paste customer reviews here...&#10;&#10;Formatting Tip:&#10;• Separate individual reviews by a new line or blank line.&#10;• Example:&#10;Loved the rapid onboarding and friendly support team!&#10;The mobile app crashes frequently when uploading photos.&#10;Standard service, average delivery speed."
+                                placeholder="Paste customer reviews here...&#10;&#10;Formatting Tip:&#10;â€¢ Separate individual reviews by a new line or blank line.&#10;â€¢ Example:&#10;Loved the rapid onboarding and friendly support team!&#10;The mobile app crashes frequently when uploading photos.&#10;Standard service, average delivery speed."
                                 maxlength="50000" required aria-describedby="textarea-help"></textarea>
                             <p id="textarea-help" class="form-hint">
                                 Customer review text is transmitted directly to Google Gemini for analysis. No reviews are permanently stored on the server.
@@ -260,6 +260,14 @@
                                 <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
                             </svg>
                             <span>Reset & Start Over</span>
+                        </button>
+                        <button type="button" id="btn-print-report" class="btn btn-outline" title="Print or save analysis report as PDF" onclick="window.print()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg>
+                            <span>Print Report</span>
                         </button>
                     </div>
                 </div>
@@ -569,3 +577,4 @@
     <script src="/static/js/app.js"></script>
 </body>
 </html>
+

@@ -1739,3 +1739,77 @@ body {
     padding: 1.5rem 0;
     margin: 0;
 }
+
+/* ==========================================================================
+   Print / Save-as-PDF Stylesheet
+   Hides all interactive chrome; formats the analysis report for paper/PDF.
+   ========================================================================== */
+
+@media print {
+    /* Hide everything outside the dashboard report */
+    .app-header,
+    .hero-section,
+    .workspace-section,
+    .how-it-works,
+    .status-banner,
+    .loading-container,
+    .dashboard-actions,
+    .filter-controls,
+    .review-search,
+    .history-section,
+    .app-footer,
+    .btn-copy-summary,
+    #btn-load-sample,
+    #btn-clear-input {
+        display: none !important;
+    }
+
+    /* Remove all shadows and backgrounds to save ink */
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10pt;
+    }
+
+    .dashboard-section {
+        display: block !important;
+        padding: 0;
+    }
+
+    .dashboard-container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* Keep cards visible but flat */
+    .card,
+    .metric-card,
+    .recommendation-card,
+    .review-card-item {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+    }
+
+    /* Metrics grid: 4 columns on A4 landscape, 2 on portrait */
+    .metrics-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    /* Theme panels side by side */
+    .dashboard-grid-two {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Report title printed at top */
+    .dashboard-main-title::before {
+        content: "ReviewSense AI — ";
+        font-weight: 400;
+        color: #555;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
