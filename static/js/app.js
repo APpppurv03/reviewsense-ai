@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Actions
     const btnExportJson = document.getElementById('btn-export-json');
+    const btnExportCsv = document.getElementById('btn-export-csv');
     const btnResetAll = document.getElementById('btn-reset-all');
 
     // Internal State
@@ -637,7 +638,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 7. Reset & Start Over
+    // 7. CSV Export Feature
+    // ==========================================
+    btnExportCsv.addEventListener('click', () => {
+        if (!currentAnalysisData) {
+            showStatusBanner('error', 'Export Error', 'No active analysis report available to export.');
+            return;
+        }
+
+        const reviews = currentAnalysisData.reviews || [];
+        if (!reviews.length) {
+            showStatusBanner('info', 'Nothing to Export', 'The analysis contains no classified reviews to export as CSV.');
+            return;
+        }
+
+        /**
+         * Escapes a value for safe inclusion in a CSV cell.
+         * Wraps in double-quotes and doubles any internal double-quotes.
+         * Handles null / undefined / numbers / strings uniformly.
+         */
+        function csvCell(value) {
+            if (value === null || value === undefined) return '""';
+            const str = String(value).replace(/"/g, '""');
+            return `"${str}"`;
+        }
+
+        const headers = ['Review ID', 'Sentiment', 'Theme', 'Excerpt', 'Explanation'];
+        const rows = reviews.map(rev => [
+            csvCell(rev.id),
+            csvCell(rev.sentiment),
+            csvCell(rev.theme),
+            csvCell(rev.excerpt),
+            csvCell(rev.explanation)
+        ].join(','));
+
+        // UTF-8 BOM so Excel opens the file correctly without needing import config
+        const BOM = '\uFEFF';
+        const csvContent = BOM + [headers.map(csvCell).join(','), ...rows].join('\r\n');
+
+        try {
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const sanitizedName = (currentAnalysisData.metadata?.business_name || 'reviews')
+                .toLowerCase()
+                .replace(/[^a-z0-9_-]/g, '_');
+            const fileName = `reviewsense_reviews_${sanitizedName}_${timestamp}.csv`;
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = fileName;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(url);
+
+            showStatusBanner('success', 'CSV Exported', `${reviews.length} classified review${reviews.length === 1 ? '' : 's'} downloaded as ${fileName}`);
+        } catch (err) {
+            showStatusBanner('error', 'Export Failed', 'Could not generate CSV download. Please try again.');
+        }
+    });
+
+    // ==========================================
+    // 8. Reset & Start Over
     // ==========================================
     btnResetAll.addEventListener('click', () => {
         if (confirm('Are you sure you want to clear the current analysis and start fresh?')) {
